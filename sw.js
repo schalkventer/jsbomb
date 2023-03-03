@@ -1,4 +1,4 @@
-const ID = "aa";
+const ID = "BUST_CACHE";
 
 const FILES = [
     "/",
