@@ -1,0 +1,154 @@
+:root {
+  --color-blue-100: rgba(0, 140, 255, 1);
+  --color-blue-90: rgba(0, 140, 255, 0.9);
+  --color-blue-75: rgba(0, 140, 255, 0.75);
+  --color-blue-50: rgba(0, 140, 255, 0.5);
+  --color-blue-25: rgba(0, 140, 255, 0.25);
+  --color-blue-10: rgba(0, 140, 255, 0.1);
+  --color-blue-0: rgba(0, 140, 255, 0);
+
+  --color-charcoal-100: rgb(10, 10, 20, 1);
+  --color-charcoal-90: rgba(10, 10, 20, 0.9);
+  --color-charcoal-75: rgba(10, 10, 20, 0.75);
+  --color-charcoal-50: rgba(10, 10, 20, 0.5);
+  --color-charcoal-25: rgba(10, 10, 20, 0.25);
+  --color-charcoal-10: rgba(10, 10, 20, 0.1);
+  --color-charcoal-0: hsla(240, 33%, 6%, 0);
+
+  --color-white-100: rgba(255, 255, 255, 1);
+  --color-white-90: rgba(255, 255, 255, 0.9);
+  --color-white-75: rgba(255, 255, 255, 075);
+  --color-white-50: rgba(255, 255, 255, 0.5);
+  --color-white-25: rgba(255, 255, 255, 0.25);
+  --color-white-10: rgba(255, 255, 255, 0.1);
+  --color-white-0: rgba(255, 255, 255, 0);
+
+  --font-s: normal normal 800 0.9/1 "M PLUS Rounded 1c", "Custom Font",
+    Helvetica, sans-serif;
+  --font-m: normal normal 800 1.25rem/1 "M PLUS Rounded 1c", "Custom Font",
+    Helvetica, sans-serif;
+  --font-l: normal normal 800 2rem/1.5 "M PLUS Rounded 1c", "Custom Font",
+    Helvetica, sans-serif;
+
+  --radius-s: 8px;
+  --radius-m: 50px;
+  --radius-l: 90px;
+  --radius-full: 50%;
+
+  --spacing-xs: 0.25rem;
+  --spacing-s: 0.5rem;
+  --spacing-m: 1rem;
+  --spacing-l: 2rem;
+}
+
+@font-face {
+  font-family: "Custom Font";
+  src: url("/assets/custom-font.woff2") format("woff2"),
+    url("/assets/custom-font.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@keyframes pop {
+  20% {
+    opacity: 1;
+    transform: scale(0.1);
+  }
+  90% {
+    opacity: 1;
+    transform: scale(2);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.1);
+  }
+}
+
+body {
+  background-color: var(--color-charcoal-90);
+  color: var(--color-white-75);
+  font: var(--font-m);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.cell {
+  width: 3rem;
+  height: 3rem;
+  background: var(--color-blue-25);
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-white-75);
+  font: var(--font-l);
+  border-width: 0;
+  position: relative;
+}
+
+.cell[data-display="closed"] {
+  background: var(--color-blue-50);
+  color: transparent;
+  cursor: pointer;
+}
+
+.cell[data-display="closed"] {
+  background: var(--color-blue-50);
+  color: transparent;
+  position: relative;
+}
+
+.cell[data-display="closed"]:after {
+  content: "";
+  position: absolute;
+  bottom: var(--spacing-xs);
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: var(--radius-full);
+  background: var(--color-blue-75);
+  color: transparent;
+  transition: transform 0.3s, background 0.3s, bottom 0.3s;
+}
+
+.cell[data-display="closed"]:hover:after {
+  background: var(--color-blue-100);
+  bottom: 0;
+}
+
+.cell[data-display="closed"]:active:after {
+  transform: scale(0.4);
+}
+
+.cell[data-display="open"] {
+    background: var(--color-blue-0)
+}
+
+.cell[data-display="open"]:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  opacity: 0;
+  left: 0;
+  background: none;
+  width: 3rem;
+  height: 3rem;
+  border: 0.5px solid var(--color-blue-75);
+  border-radius: 50%;
+  transform-origin: center;
+  animation-duration: 0.3s;
+  animation-name: pop;
+  animation-timing-function: ease-out;
+  animation-fill-mode: forwards;
+}
+
+.grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    width: calc((3 * (6rem + 0.5rem)) + 1rem);
+}
