@@ -1,6 +1,6 @@
-const ID = "742164bf-37b3-4b5b-a65d-a7d827316cb0";
+const ID = "74aasddddsd21316cb0";
 
-const appShellFiles = [
+const FILES = [
     "/",
     "/index.html",
     "/assets/custom-font.woff",
@@ -22,25 +22,16 @@ const appShellFiles = [
 ];
 
 self.addEventListener("install", (event) => {
+    console.log(event)
     event.waitUntil(
-        (async () => {
-            const cache = await caches.open(ID);
-            await cache.addAll(contentToCache);
-        })()
+        caches
+            .open(ID)
+            .then((cache) =>cache.addAll(FILES)
+        )
     );
 });
 
 self.addEventListener("fetch", (event) => {
-    event.respondWith(
-        (async () => {
-            const singleCache = await caches.match(event.request);
-            if (singleCache) return singleCache;
-
-            const response = await fetch(event.request);
-            const cache = await caches.open(ID);
-
-            cache.put(event.request, response.clone());
-            return response;
-        })()
-    );
+    console.log(event)
+    event.respondWith(caches.match(event.request));
 });
