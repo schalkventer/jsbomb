@@ -1,4 +1,4 @@
-const ID = "BUST_CACHE";
+const ID = "7e72106asb-f4ac-472e-98be-ef9cab03f2e4";
 
 const FILES = [
     "/",
@@ -26,30 +26,25 @@ self.addEventListener("install", (event) => {
     event.waitUntil(
         caches
             .open(ID)
-            .then((cache) =>cache.addAll(FILES)
+            .then((cache) => cache.addAll(FILES)
         )
     );
 });
 
 self.addEventListener("fetch", (event) => {
-    console.log(`Handling fetch event for ${event.request.url}`);
-  
     event.respondWith(
       caches.match(event.request).then((response) => {
         if (response) {
-          console.log("Found response in cache:", response);
           return response;
         }
-        console.log("No response found in cache. About to fetch from network…");
+        
+        console.log(event);
   
         return fetch(event.request)
           .then((response) => {
-            console.log("Response from network is:", response);
-  
             return response;
           })
           .catch((error) => {
-            console.error(`Fetching failed: ${error}`);
             throw error;
           });
       })
